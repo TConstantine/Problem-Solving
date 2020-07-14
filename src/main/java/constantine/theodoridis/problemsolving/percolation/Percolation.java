@@ -20,6 +20,11 @@ public class Percolation {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
+  public boolean isFull(int row, int column) {
+    validateIndices(row, column);
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
+
   private void validateIndices(int row, int column) {
     if (row <= 0 || row > size || column <= 0 || column > size) {
       throw new IllegalArgumentException();

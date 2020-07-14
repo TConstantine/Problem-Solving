@@ -36,6 +36,14 @@ public class PercolationCorrectnessTest {
     percolation.isOpen(row, column);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  @Parameters(method = "invalidArguments")
+  public void shouldThrowException_WhenIsFullIsCalledWithInvalidArgument(int size, int row, int column) {
+    percolation = new Percolation(size);
+
+    percolation.isFull(row, column);
+  }
+
   private Object invalidArguments() {
     return new Object[]{
       "10, -1, 5",
