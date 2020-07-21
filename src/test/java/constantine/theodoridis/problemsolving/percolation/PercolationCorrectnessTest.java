@@ -39,13 +39,27 @@ public class PercolationCorrectnessTest {
   }
 
   @Test
-  @Parameters({"1", "2", "5", "10", "25", "50", "100"})
+  @Parameters(method = "sizes")
   public void shouldHaveAllSitesBlockedInitially(int size) {
     percolation = new Percolation(size);
 
     for (int row = 1; row <= size; row++) {
       for (int column = 1; column <= size; column++) {
         assertThat(percolation.isOpen(row, column), is(false));
+      }
+    }
+  }
+
+  @Test
+  @Parameters(method = "sizes")
+  public void shouldOpenGivenSite(int size) {
+    percolation = new Percolation(size);
+
+    for (int row = 1; row <= size; row++) {
+      for (int column = 1; column <= size; column++) {
+        percolation.open(row, column);
+
+        assertThat(percolation.isOpen(row, column), is(true));
       }
     }
   }
@@ -69,6 +83,10 @@ public class PercolationCorrectnessTest {
       "10, -2147483648, -2147483648",
       "10, 2147483647, 2147483647"
     };
+  }
+
+  private Object sizes() {
+    return new Object[]{"1", "2", "5", "10", "25", "50", "100"};
   }
 
 }
