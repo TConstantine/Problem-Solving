@@ -48,6 +48,7 @@ public class PercolationCorrectnessTest {
         assertThat(percolation.isOpen(row, column), is(false));
       }
     }
+    assertThat(percolation.numberOfOpenSites(), is(0));
   }
 
   @Test

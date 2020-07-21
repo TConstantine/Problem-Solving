@@ -26,6 +26,10 @@ public class Percolation {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
+  public int numberOfOpenSites() {
+    return 0;
+  }
+
   private void validateIndices(int row, int column) {
     if (row <= 0 || row > sites.length || column <= 0 || column > sites.length) {
       throw new IllegalArgumentException();
