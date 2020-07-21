@@ -14,8 +14,10 @@ public class Percolation {
 
   public void open(int row, int column) {
     validateIndices(row, column);
-    sites[row - 1][column - 1] = true;
-    numberOfOpenSites++;
+    if (!isOpen(row, column)) {
+      sites[row - 1][column - 1] = true;
+      numberOfOpenSites++;
+    }
   }
 
   public boolean isOpen(int row, int column) {

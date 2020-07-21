@@ -83,6 +83,17 @@ public class PercolationCorrectnessTest {
     assertThat(percolation.numberOfOpenSites(), is(1));
   }
 
+  @Test
+  @Parameters(method = "sizes")
+  public void shouldNotIncreaseNumberOfOpenSites_WhenOpenSiteIsOpened(int size) {
+    percolation = new Percolation(size);
+    percolation.open(size, size);
+
+    percolation.open(size, size);
+
+    assertThat(percolation.numberOfOpenSites(), is(1));
+  }
+
   private Object invalidArguments() {
     return new Object[]{
       "10, -1, 5",
