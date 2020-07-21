@@ -2,6 +2,8 @@ package constantine.theodoridis.problemsolving.percolation;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -34,6 +36,18 @@ public class PercolationCorrectnessTest {
     percolation = new Percolation(size);
 
     percolation.isOpen(row, column);
+  }
+
+  @Test
+  @Parameters({"1", "2", "5", "10", "25", "50", "100"})
+  public void shouldHaveAllSitesBlockedInitially(int size) {
+    percolation = new Percolation(size);
+
+    for (int row = 1; row <= size; row++) {
+      for (int column = 1; column <= size; column++) {
+        assertThat(percolation.isOpen(row, column), is(false));
+      }
+    }
   }
 
   @Test(expected = IllegalArgumentException.class)

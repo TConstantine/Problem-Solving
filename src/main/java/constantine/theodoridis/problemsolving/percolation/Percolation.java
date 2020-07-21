@@ -17,7 +17,7 @@ public class Percolation {
 
   public boolean isOpen(int row, int column) {
     validateIndices(row, column);
-    throw new UnsupportedOperationException("Not supported yet.");
+    return false;
   }
 
   public boolean isFull(int row, int column) {
