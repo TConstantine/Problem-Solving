@@ -3,6 +3,7 @@ package constantine.theodoridis.problemsolving.percolation;
 public class Percolation {
 
   private final boolean[][] sites;
+  private int numberOfOpenSites;
 
   public Percolation(int size) {
     if (size <= 0) {
@@ -14,6 +15,7 @@ public class Percolation {
   public void open(int row, int column) {
     validateIndices(row, column);
     sites[row - 1][column - 1] = true;
+    numberOfOpenSites++;
   }
 
   public boolean isOpen(int row, int column) {
@@ -27,7 +29,7 @@ public class Percolation {
   }
 
   public int numberOfOpenSites() {
-    return 0;
+    return numberOfOpenSites;
   }
 
   private void validateIndices(int row, int column) {
