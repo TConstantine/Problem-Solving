@@ -24,6 +24,7 @@ public class Percolation {
       connectWithTopSite(row, column);
       connectWithTopNeighbor(row, column);
       connectWithLeftNeighbor(row, column);
+      connectWithRightNeighbor(row, column);
     }
   }
 
@@ -62,6 +63,12 @@ public class Percolation {
   private void connectWithLeftNeighbor(int row, int column) {
     if (column != 1 && isOpen(row, column - 1)) {
       sites.union(getIndex(row, column), getIndex(row, column - 1));
+    }
+  }
+
+  private void connectWithRightNeighbor(int row, int column) {
+    if (column != isOpen.length && isOpen(row, column + 1)) {
+      sites.union(getIndex(row, column), getIndex(row, column + 1));
     }
   }
 
