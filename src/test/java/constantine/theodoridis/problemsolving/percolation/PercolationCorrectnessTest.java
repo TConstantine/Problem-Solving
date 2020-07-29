@@ -148,6 +148,16 @@ public class PercolationCorrectnessTest {
     assertThat(percolation.percolates(), is(false));
   }
 
+  @Test
+  public void shouldPercolate_WhenFullSiteExistsInBottomRow() {
+    percolation = new Percolation(3);
+    percolation.open(1, 2);
+    percolation.open(2, 2);
+    percolation.open(3, 2);
+
+    assertThat(percolation.percolates(), is(true));
+  }
+
   private Object invalidArguments() {
     return new Object[]{
       "10, -1, 5",

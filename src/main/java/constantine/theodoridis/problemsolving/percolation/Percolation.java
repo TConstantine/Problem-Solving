@@ -12,7 +12,7 @@ public class Percolation {
     if (size <= 0) {
       throw new IllegalArgumentException();
     }
-    sites = new WeightedQuickUnionUF(size * size + 1);
+    sites = new WeightedQuickUnionUF(size * size + 2);
     isOpen = new boolean[size][size];
   }
 
@@ -22,9 +22,11 @@ public class Percolation {
       isOpen[row - 1][column - 1] = true;
       numberOfOpenSites++;
       connectWithTopSite(row, column);
+      connectWithBottomSite(row, column);
       connectWithTopNeighbor(row, column);
       connectWithLeftNeighbor(row, column);
       connectWithRightNeighbor(row, column);
+      connectWithBottomNeighbor(row, column);
     }
   }
 
@@ -43,7 +45,7 @@ public class Percolation {
   }
 
   public boolean percolates() {
-    return false;
+    return sites.find(getSize() + 1) == sites.find(getSize());
   }
 
   private void validateIndices(int row, int column) {
@@ -55,6 +57,12 @@ public class Percolation {
   private void connectWithTopSite(int row, int column) {
     if (isInTopRow(row)) {
       sites.union(getIndex(row, column), getSize());
+    }
+  }
+
+  private void connectWithBottomSite(int row, int column) {
+    if (isInBottomRow(row)) {
+      sites.union(getIndex(row, column), getSize() + 1);
     }
   }
 
@@ -76,6 +84,12 @@ public class Percolation {
     }
   }
 
+  private void connectWithBottomNeighbor(int row, int column) {
+    if (!isInBottomRow(row) && isOpen(row + 1, column)) {
+      sites.union(getIndex(row, column), getIndex(row + 1, column));
+    }
+  }
+
   private int getIndex(int row, int column) {
     return isOpen.length * (column - 1) + row - 1;
   }
@@ -86,6 +100,10 @@ public class Percolation {
 
   private boolean isInTopRow(int row) {
     return row == 1;
+  }
+
+  private boolean isInBottomRow(int row) {
+    return row == isOpen.length;
   }
 
 }
