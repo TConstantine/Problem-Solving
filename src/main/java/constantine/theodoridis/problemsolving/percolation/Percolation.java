@@ -42,6 +42,10 @@ public class Percolation {
     return numberOfOpenSites;
   }
 
+  public boolean percolates() {
+    return false;
+  }
+
   private void validateIndices(int row, int column) {
     if (row <= 0 || row > isOpen.length || column <= 0 || column > isOpen.length) {
       throw new IllegalArgumentException();
