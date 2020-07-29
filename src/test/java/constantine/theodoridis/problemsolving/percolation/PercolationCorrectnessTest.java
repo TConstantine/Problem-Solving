@@ -99,6 +99,16 @@ public class PercolationCorrectnessTest {
   }
 
   @Test
+  public void shouldHaveFullSite_WhenSiteIsOpenAndIsConnectedWithAnOpenSiteInTopRowThroughLeftNeighbor() {
+    percolation = new Percolation(3);
+    percolation.open(1, 1);
+    percolation.open(2, 1);
+    percolation.open(2, 2);
+
+    assertThat(percolation.isFull(2, 2), is(true));
+  }
+
+  @Test
   @Parameters(method = "sizes")
   public void shouldIncreaseNumberOfOpenSites_WhenSiteIsOpened(int size) {
     percolation = new Percolation(size);
