@@ -158,6 +158,19 @@ public class PercolationCorrectnessTest {
     assertThat(percolation.percolates(), is(true));
   }
 
+  @Test
+  public void shouldNotBackwash() {
+    percolation = new Percolation(3);
+    percolation.open(1, 2);
+    percolation.open(2, 2);
+    percolation.open(2, 3);
+    percolation.open(3, 1);
+    percolation.open(3, 3);
+
+    assertThat(percolation.percolates(), is(true));
+    assertThat(percolation.isFull(3, 1), is(false));
+  }
+
   private Object invalidArguments() {
     return new Object[]{
       "10, -1, 5",

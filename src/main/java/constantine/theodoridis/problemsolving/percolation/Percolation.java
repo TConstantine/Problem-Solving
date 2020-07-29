@@ -5,6 +5,7 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 public class Percolation {
 
   private final WeightedQuickUnionUF sites;
+  private final WeightedQuickUnionUF fullSites;
   private final boolean[][] isOpen;
   private int numberOfOpenSites;
 
@@ -12,8 +13,9 @@ public class Percolation {
     if (size <= 0) {
       throw new IllegalArgumentException();
     }
-    sites = new WeightedQuickUnionUF(size * size + 2);
     isOpen = new boolean[size][size];
+    sites = new WeightedQuickUnionUF(getSize() + 2);
+    fullSites = new WeightedQuickUnionUF(getSize() + 1);
   }
 
   public void open(int row, int column) {
@@ -37,7 +39,7 @@ public class Percolation {
 
   public boolean isFull(int row, int column) {
     validateIndices(row, column);
-    return sites.find(getIndex(row, column)) == sites.find(getSize());
+    return fullSites.find(getIndex(row, column)) == fullSites.find(getSize());
   }
 
   public int numberOfOpenSites() {
@@ -57,6 +59,7 @@ public class Percolation {
   private void connectWithTopSite(int row, int column) {
     if (isInTopRow(row)) {
       sites.union(getIndex(row, column), getSize());
+      fullSites.union(getIndex(row, column), getSize());
     }
   }
 
@@ -69,24 +72,28 @@ public class Percolation {
   private void connectWithTopNeighbor(int row, int column) {
     if (!isInTopRow(row) && isOpen(row - 1, column)) {
       sites.union(getIndex(row, column), getIndex(row - 1, column));
+      fullSites.union(getIndex(row, column), getIndex(row - 1, column));
     }
   }
 
   private void connectWithLeftNeighbor(int row, int column) {
     if (column != 1 && isOpen(row, column - 1)) {
       sites.union(getIndex(row, column), getIndex(row, column - 1));
+      fullSites.union(getIndex(row, column), getIndex(row, column - 1));
     }
   }
 
   private void connectWithRightNeighbor(int row, int column) {
     if (column != isOpen.length && isOpen(row, column + 1)) {
       sites.union(getIndex(row, column), getIndex(row, column + 1));
+      fullSites.union(getIndex(row, column), getIndex(row, column + 1));
     }
   }
 
   private void connectWithBottomNeighbor(int row, int column) {
     if (!isInBottomRow(row) && isOpen(row + 1, column)) {
       sites.union(getIndex(row, column), getIndex(row + 1, column));
+      fullSites.union(getIndex(row, column), getIndex(row + 1, column));
     }
   }
 
