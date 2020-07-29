@@ -81,6 +81,15 @@ public class PercolationCorrectnessTest {
   }
 
   @Test
+  public void shouldNotHaveFullSite_WhenSiteIsOpenAndIsNotConnectedWithAnOpenSiteInTopRow() {
+    percolation = new Percolation(3);
+    percolation.open(1, 1);
+    percolation.open(2, 2);
+
+    assertThat(percolation.isFull(2, 2), is(false));
+  }
+
+  @Test
   public void shouldHaveFullSite_WhenSiteIsOpenAndIsConnectedWithAnOpenSiteInTopRow() {
     percolation = new Percolation(3);
     percolation.open(1, 2);
