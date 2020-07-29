@@ -74,6 +74,13 @@ public class PercolationCorrectnessTest {
   }
 
   @Test
+  public void shouldNotHaveFullSite_WhenSiteIsNotOpen() {
+    percolation = new Percolation(3);
+
+    assertThat(percolation.isFull(2, 2), is(false));
+  }
+
+  @Test
   @Parameters(method = "sizes")
   public void shouldIncreaseNumberOfOpenSites_WhenSiteIsOpened(int size) {
     percolation = new Percolation(size);
